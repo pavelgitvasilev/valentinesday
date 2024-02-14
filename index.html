@@ -9,27 +9,44 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f7e0e0;
+            margin: 0;
+            padding: 0;
         }
         h1 {
             color: #c70039;
+            margin-top: 20px;
         }
         .heart {
             display: inline-block;
-            font-size: 48px;
+            font-size: 42px;
             margin: 10px;
             cursor: pointer;
             transition: transform 0.3s;
-            color: lightgrey;
+            color: #c70039;
+        }
+        .heart#gift8 {
+            font-size: 32px;
         }
         .heart:hover {
             transform: scale(1.2);
+            font-size: 54px;
         }
+        .heart#hh {
+            transform: scale(1);
+            font-size: 32px;
+        }
+
+        .heart#hh:hover {
+            transform: scale(1);
+            font-size: 32px;
+        }
+
         .disabled {
             filter: grayscale(100%);
         }
         #message {
             display: none;
-            margin-top: 20px;
+            margin-top: 40px;
             font-size: 24px;
             color: #ff5733;
         }
@@ -37,6 +54,10 @@
             margin-top: 20px;
             padding: 5px;
             font-size: 18px;
+            width: 80%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
         #name-submit {
             margin-top: 10px;
@@ -57,13 +78,21 @@
             border-radius: 5px;
             display: none;
         }
+
+        #final-text {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .music {
+            margin-top: 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 <h1>Подарок для тебя</h1>
 <input type="text" id="name-input" placeholder="Введите своё имя">
 <button id="name-submit" onclick="submitName()">Начать</button>
-<div id="message"></div>
 <div class="error-message" id="error-message">Пожалуйста, откройте предыдущий подарок!</div>
 
 <div id="gift-box" style="display: none;">
@@ -77,10 +106,19 @@
     <div class="heart disabled" id="gift8" onclick="selectGift(8)">💝</div>
 </div>
 
+<div id="message"></div>
 <audio id="audio" controls style="display: none;">
     <source src="https://music.yandex.ru/album/9423669/track/36513661" type="audio/mpeg">
     Ваш браузер не поддерживает аудио элемент.
 </audio>
+
+<div id="final-text" style="display: none;">
+    Песня не играет??<br> Жмякни прямо <a href="https://music.yandex.ru/album/9423669/track/36513661?utm_medium=copy_link" target="_blank">СЮДА</a><br> и слушай на здоровье!)
+</div>
+
+<div class="music" style="display: none;">
+    <a href="https://music.yandex.ru/album/9423669/track/36513661?utm_medium=copy_link" target="_blank">Послушать на яндексе</a>
+</div>
 
 <script>
     let selectedGifts = [];
@@ -109,22 +147,22 @@
                 message = 'Хочется поцеловать тебя, но ты не рядом, поэтому лови воздушный поцелуй!!! 💋';
                 break;
             case 3:
-                message = 'Подарок для сладкого человечка! 🍫';
+                message = 'Сладкая шоколадка для сладкого человечка! 🍫';
                 break;
             case 4:
-                message = 'Для тебя воздушный шарик! 🎈';
+                message = 'А теперь для тебя воздушный шарик! 🎈';
                 break;
             case 5:
-                message = 'Вот тебе конфетка! 🍬';
+                message = 'Вот тебе конфетка, милая жена!! 🍬';
                 break;
             case 6:
-                message = 'Поздравляю! Это подарок! 🎁';
+                message = 'Хммм, дальше тоже подарок! 🎁';
                 break;
             case 7:
-                message = 'Подарок в виде фейерверка! 🎆';
+                message = 'И конечно фейерверк!! тыщь-дыщь тыщь-дыщь тыщь-дыщь!! 🎆';
                 break;
             case 8:
-                message = 'Подарок в виде сердечка! 💝';
+                message = '💝';
                 break;
         }
 
@@ -132,8 +170,11 @@
         document.getElementById('message').style.display = 'block';
 
         if (giftNumber === 8) {
+            document.getElementById('message').style.fontSize = '130px';
             mainGift = '🎁 ' + document.getElementById('name-input').value + ', я тебя люблю! С Днем Святого Валентина';
-            document.getElementById('gift-box').innerHTML = '<div class="heart">' + mainGift + '</div>';
+            document.getElementById('gift-box').innerHTML = '<div class="heart" id="hh">' + mainGift + '</div>';
+            document.getElementById('hh').style.fontSize = '32px';
+
         }
 
         // Если выбран последний подарок (музыкальный), воспроизвести музыку
@@ -141,7 +182,9 @@
             document.getElementById('audio').style.display = 'block';
             document.getElementById('audio').style.margin = 'auto';
             playAudio();
+            document.getElementById('final-text').style.display = 'block';
         }
+
 
     }
 
